@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLMBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="NguoiThue">
+    <Key>
+      <PropertyRef Name="TenDangNhap" />
+    </Key>
+    <Property Name="TenDangNhap" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="MatKhau" Type="String" MaxLength="64" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="CMND" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="ThongTin" Relationship="Self.FK__NguoiThue__CMND__398D8EEE" FromRole="NguoiThue" ToRole="ThongTin" />
+  </EntityType>
+  <EntityType Name="ThongTin">
+    <Key>
+      <PropertyRef Name="CMND" />
+    </Key>
+    <Property Name="CMND" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="NgayCap" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GioiTinh" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="NguoiThues" Relationship="Self.FK__NguoiThue__CMND__398D8EEE" FromRole="ThongTin" ToRole="NguoiThue" />
+  </EntityType>
+  <Association Name="FK__NguoiThue__CMND__398D8EEE">
+    <End Role="ThongTin" Type="Self.ThongTin" Multiplicity="0..1" />
+    <End Role="NguoiThue" Type="Self.NguoiThue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThongTin">
+        <PropertyRef Name="CMND" />
+      </Principal>
+      <Dependent Role="NguoiThue">
+        <PropertyRef Name="CMND" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLMBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="NguoiThues" EntityType="Self.NguoiThue" />
+    <EntitySet Name="ThongTins" EntityType="Self.ThongTin" />
+    <AssociationSet Name="FK__NguoiThue__CMND__398D8EEE" Association="Self.FK__NguoiThue__CMND__398D8EEE">
+      <End Role="ThongTin" EntitySet="ThongTins" />
+      <End Role="NguoiThue" EntitySet="NguoiThues" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLMBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="NguoiThue">
+    <Key>
+      <PropertyRef Name="TenDangNhap" />
+    </Key>
+    <Property Name="TenDangNhap" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="MatKhau" Type="char" MaxLength="64" Nullable="false" />
+    <Property Name="CMND" Type="char" MaxLength="12" />
+  </EntityType>
+  <EntityType Name="ThongTin">
+    <Key>
+      <PropertyRef Name="CMND" />
+    </Key>
+    <Property Name="CMND" Type="char" MaxLength="12" Nullable="false" />
+    <Property Name="NgayCap" Type="date" Nullable="false" />
+    <Property Name="HoTen" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="GioiTinh" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="NgaySinh" Type="date" Nullable="false" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__NguoiThue__CMND__398D8EEE">
+    <End Role="ThongTin" Type="Self.ThongTin" Multiplicity="0..1" />
+    <End Role="NguoiThue" Type="Self.NguoiThue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ThongTin">
+        <PropertyRef Name="CMND" />
+      </Principal>
+      <Dependent Role="NguoiThue">
+        <PropertyRef Name="CMND" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLMBModelStoreContainer">
+    <EntitySet Name="NguoiThue" EntityType="Self.NguoiThue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThongTin" EntityType="Self.ThongTin" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__NguoiThue__CMND__398D8EEE" Association="Self.FK__NguoiThue__CMND__398D8EEE">
+      <End Role="ThongTin" EntitySet="ThongTin" />
+      <End Role="NguoiThue" EntitySet="NguoiThue" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
